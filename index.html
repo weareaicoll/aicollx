@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aicoll X - Hub de Soluciones Tecnológicas Avanzadas</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -310,7 +312,11 @@
             to { transform: translateY(12px) rotate(2deg); }
         }
 
-        .api-flow-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+        .api-flow-svg { 
+            width: 100%;
+            height: auto;
+            display: block; 
+        }
         .api-flow-line {
             fill: none;
             stroke-width: 3px;
@@ -373,7 +379,7 @@
                 <div class="flex justify-between items-center h-16 md:h-20">
                     <div class="flex-shrink-0">
                         <a href="#home" class="navbar-logo-container-textual">
-                            <span class="navbar-logo-text">Aicoll</span><span class="navbar-logo-x">X</span>
+                            <img src="LOGO-AICOLL-SIGN.png" alt="Aicoll x" class="meta-provider-logo mb-4 md:mb-0">
                         </a>
                     </div>
                     <div class="hidden md:flex items-center space-x-5 lg:space-x-7">
@@ -383,7 +389,7 @@
                         <a href="#dynamic-flow" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Ecosistema</a>
                         <a href="#integrations" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Integración</a>
                         <a href="#about" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Nosotros</a>
-                        <a href="#contact" class="btn-primary hover:shadow-lg px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300">Contáctanos</a>
+                        <a href="https://wa.me/573127047643" target="_blank" rel="noopener noreferrer" class="btn-primary hover:shadow-lg px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300">Contáctanos</a>
                     </div>
                     <div class="md:hidden">
                         <button @click="toggleMobileMenu" class="text-gray-600 hover:text-[var(--color-primary)] focus:outline-none">
@@ -400,7 +406,7 @@
                     <a href="#dynamic-flow" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Ecosistema</a>
                     <a href="#integrations" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Integración</a>
                     <a href="#about" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Nosotros</a>
-                    <a href="#contact" @click="closeMobileMenu" class="block bg-[var(--color-secondary)] text-white hover:bg-[#860050] px-3 py-2 rounded-md text-base font-medium transition-colors shadow-sm text-center">Contáctanos</a>
+                    <a href="https://wa.me/573127047643" target="_blank" rel="noopener noreferrer" @click="closeMobileMenu" class="block bg-[var(--color-secondary)] text-white hover:bg-[#860050] px-3 py-2 rounded-md text-base font-medium transition-colors shadow-sm text-center">Contáctanos</a>
                 </div>
             </div>
         </nav>
@@ -411,7 +417,6 @@
                 <div class="hero-content container mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-40 text-center">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
                         <span class="hero-logo-container-textual">
-                            <span class="hero-logo-text">Aicoll</span><span class="hero-logo-x">X</span>
                         </span>
                         <br class="hidden sm:block"> El Futuro de las Soluciones Digitales Integradas
                     </h1>
@@ -504,22 +509,22 @@
                             <path id="pathWhatsappFlow" class="api-flow-line line-whatsappflow" d="M425 340 Q320 220 230 120" />
                             <circle class="line-pulse-dot" fill="url(#lineGradWhatsappFlow)"><animateMotion dur="1.2s" begin="0.7s" repeatCount="indefinite"><mpath xlink:href="#pathWhatsappFlow"/></animateMotion></circle>
 
-                            <path id="pathIdValidation" class="api-flow-line line-idvalidation" d="M425 340 Q520 280 620 220" />
+                            <path id="pathIdValidation" class="api-flow-line line-idvalidation" d="M425 340 Q520 280 640 240" />
                             <circle class="line-pulse-dot" fill="url(#lineGradIdValidation)"><animateMotion dur="1.2s" begin="1.4s" repeatCount="indefinite"><mpath xlink:href="#pathIdValidation"/></animateMotion></circle>
                             
-                            <path id="pathAiScoring" class="api-flow-line line-aiscoring" d="M425 340 Q280 360 180 430" />
+                            <path id="pathAiScoring" class="api-flow-line line-aiscoring" d="M425 340 Q280 360 150 380" />
                             <circle class="line-pulse-dot" fill="url(#lineGradAiScoring)"><animateMotion dur="1.2s" begin="2.1s" repeatCount="indefinite"><mpath xlink:href="#pathAiScoring"/></animateMotion></circle>
 
-                            <path id="pathEsignature" class="api-flow-line line-esignature" d="M425 340 Q360 450 300 550" />
+                            <path id="pathEsignature" class="api-flow-line line-esignature" d="M425 340 Q360 450 380 510" />
                             <circle class="line-pulse-dot" fill="url(#lineGradEsignature)"><animateMotion dur="1.2s" begin="2.8s" repeatCount="indefinite"><mpath xlink:href="#pathEsignature"/></animateMotion></circle>
 
                             <path id="pathPayments" class="api-flow-line line-payments" d="M425 340 Q500 460 580 580" />
                             <circle class="line-pulse-dot" fill="url(#lineGradPayments)"><animateMotion dur="1.2s" begin="3.5s" repeatCount="indefinite"><mpath xlink:href="#pathPayments"/></animateMotion></circle>
 
-                            <path id="pathCustody" class="api-flow-line line-custody" d="M425 340 Q580 360 700 400" />
+                            <path id="pathCustody" class="api-flow-line line-custody" d="M425 340 Q580 360 800 480" />
                             <circle class="line-pulse-dot" fill="url(#lineGradCustody)"><animateMotion dur="1.2s" begin="4.2s" repeatCount="indefinite"><mpath xlink:href="#pathCustody"/></animateMotion></circle>
                             
-                            <path id="pathAiAssistant" class="api-flow-line line-aiassistant" d="M425 340 Q425 200 425 80" />
+                            <path id="pathAiAssistant" class="api-flow-line line-aiassistant" d="M425 340 Q425 220 530 120" />
                             <circle class="line-pulse-dot" fill="url(#lineGradAiAssistant)"><animateMotion dur="1.2s" begin="4.9s" repeatCount="indefinite"><mpath xlink:href="#pathAiAssistant"/></animateMotion></circle>
                         </svg>
 
@@ -613,53 +618,6 @@
                     </div>
                 </div>
             </section>
-
-            <section id="contact" class="py-16 lg:py-24 bg-[var(--color-primary)]">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="max-w-xl mx-auto text-center mb-12">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Hablemos de tu Próximo Proyecto</h2>
-                        <p class="mt-4 text-lg text-gray-300">
-                            ¿Listo para innovar? Completa el formulario y nuestro equipo se pondrá en contacto contigo.
-                        </p>
-                    </div>
-                    <div class="max-w-lg mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl">
-                        <form @submit.prevent="submitForm">
-                            <div class="grid grid-cols-1 gap-y-6 gap-x-4">
-                                <div >
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
-                                    <div class="mt-1">
-                                        <input type="text" name="name" id="name" autocomplete="name" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border-gray-300 rounded-md" placeholder="Tu nombre">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                    <div class="mt-1">
-                                        <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border-gray-300 rounded-md" placeholder="tu@email.com">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="company" class="block text-sm font-medium text-gray-700">Empresa (Opcional)</label>
-                                    <div class="mt-1">
-                                        <input type="text" name="company" id="company" autocomplete="organization" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border-gray-300 rounded-md" placeholder="Nombre de tu empresa">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
-                                    <div class="mt-1">
-                                        <textarea id="message" name="message" rows="4" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border border-gray-300 rounded-md" placeholder="¿Cómo podemos ayudarte?"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-8">
-                                <button type="submit" class="w-full btn-primary hover:shadow-lg inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-secondary)]">
-                                    Enviar Mensaje
-                                </button>
-                            </div>
-                        </form>
-                         <p v-if="formSubmitted" class="mt-4 text-center text-green-600">¡Gracias! Tu mensaje ha sido enviado.</p>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <footer class="bg-gray-900 text-gray-400"> 
@@ -667,7 +625,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                     <div>
                          <a href="#home" class="footer-logo-container-textual">
-                             <span class="footer-logo-text">Aicoll</span><span class="footer-logo-x">X</span>
+                             <img src="LOGO-AICOLL-SIGN.png" alt="Aicoll x" class="meta-provider-logo mb-4 md:mb-0">
                          </a>
                         <p class="text-sm">Transformando la tecnología en soluciones simples y poderosas para tu negocio.</p>
                     </div>
@@ -680,7 +638,7 @@
                             <li><a href="#dynamic-flow" class="hover:text-[var(--color-secondary)] transition-colors">Ecosistema</a></li>
                             <li><a href="#integrations" class="hover:text-[var(--color-secondary)] transition-colors">Integración</a></li>
                             <li><a href="#about" class="hover:text-[var(--color-secondary)] transition-colors">Nosotros</a></li>
-                            <li><a href="#contact" class="hover:text-[var(--color-secondary)] transition-colors">Contacto</a></li>
+                            <li><a href="https://wa.me/573127047643" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-secondary)] transition-colors">Contacto</a></li>
                         </ul>
                     </div>
                     <div>
