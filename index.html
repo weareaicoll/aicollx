@@ -35,29 +35,28 @@
             --color-accent-green: #28a745; 
             --color-accent-teal: #00A99D; 
             --color-accent-lime: #A5C32B;
-            --color-crm-highlight-bg: #f3e8ff; /* Un lila muy claro para el fondo del CRM destacado */
+            --color-crm-highlight-bg: #f3e8ff;
         }
 
-        /* Estilo para el logo de AicollX basado en texto */
         .navbar-logo-container-textual {
             display: inline-flex;
             align-items: center;
         }
         .navbar-logo-text {
             font-weight: 700;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.875rem;
             color: var(--color-primary);
             padding: 0.1rem 0.3rem;
         }
         .navbar-logo-x {
             font-weight: 700;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.875rem;
             color: var(--color-secondary);
             background-color: rgba(163,0,101,0.1); 
-            padding: 0.1rem 0.5rem; /* Ajustar padding para la X */
-            border-radius: 0.625rem; /* rounded-lg */
+            padding: 0.1rem 0.5rem;
+            border-radius: 0.625rem;
             margin-left: 0.2rem;
-            line-height: 1.1; /* Para alinear mejor verticalmente si es necesario */
+            line-height: 1.1;
         }
          .footer-logo-container-textual {
             display: inline-flex;
@@ -66,15 +65,15 @@
         }
         .footer-logo-text {
             font-weight: 700;
-            font-size: 1.875rem; /* text-3xl */
-            color: var(--color-text-on-primary); /* Color blanco para el footer */
+            font-size: 1.875rem;
+            color: var(--color-text-on-primary);
             padding: 0.1rem 0.3rem;
         }
         .footer-logo-x {
             font-weight: 700;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.875rem;
             color: var(--color-secondary);
-            background-color: rgba(255,255,255,0.15); /* Fondo más claro para la X en el footer */
+            background-color: rgba(255,255,255,0.15);
             padding: 0.1rem 0.5rem;
             border-radius: 0.625rem; 
             margin-left: 0.2rem;
@@ -100,14 +99,14 @@
             position: relative;
             z-index: 1;
         }
-        .hero-logo-container-textual { /* Para el logo en la sección Hero */
+        .hero-logo-container-textual {
             display: inline-flex;
             align-items: center;
-            margin-bottom: 1rem; /* mb-4 */
+            margin-bottom: 1rem;
         }
         .hero-logo-text {
-            font-weight: 800; /* extra-bold */
-            font-size: 2.25rem; /* text-4xl, o ajustar según necesidad */
+            font-weight: 800;
+            font-size: 2.25rem;
             color: var(--color-text-on-primary);
             padding: 0.1rem 0.3rem;
         }
@@ -143,15 +142,15 @@
             color: var(--color-text-on-secondary);
             box-shadow: 0 6px 14px rgba(163,0,101, 0.4); 
         }
-        /* Estilos para la tarjeta CRM destacada */
+        
         .crm-highlight {
             background-color: var(--color-crm-highlight-bg) !important;
             border: 2px solid var(--color-secondary) !important;
-            box-shadow: 0 10px 30px rgba(163,0,101,0.2) !important; /* Sombra más pronunciada */
-            transform: scale(1.03); /* Ligero aumento para destacar */
+            box-shadow: 0 10px 30px rgba(163,0,101,0.2) !important;
+            transform: scale(1.03);
         }
         .crm-highlight:hover {
-            transform: translateY(-5px) scale(1.05); /* Efecto hover más pronunciado */
+            transform: translateY(-5px) scale(1.05);
         }
 
 
@@ -194,7 +193,6 @@
             transform: translateY(-2px);
         }
         
-        /* Meta Tech Provider Section */
         .meta-provider-section {
             background-color: var(--color-gray-light);
             border-top: 1px solid var(--color-gray-medium);
@@ -206,7 +204,6 @@
             margin-right: 1rem; 
         }
 
-        /* Dynamic API Ecosystem Flow Section */
         .api-ecosystem-section {
             background-color: #FFFFFF; 
             background-image: radial-gradient(var(--color-gray-medium) 0.8px, transparent 0.8px);
@@ -266,7 +263,6 @@
             margin-right: 0.7rem; 
             font-size: 1rem; 
         }
-        /* Gradientes para iconos de nodos */
         .flow-node__icon--hub { background: linear-gradient(45deg, var(--color-primary) 0%, #4a00e0 100%); color: white; }
         .flow-node__icon--whatsappflow { background: linear-gradient(45deg, #25D366 0%, #128C7E 100%); color: white; } 
         .flow-node__icon--idvalidation { background: linear-gradient(45deg, var(--color-accent-orange) 0%, #cc6000 100%); color: white; }
@@ -283,7 +279,6 @@
             white-space: nowrap;
         }
 
-        /* Posicionamiento de los nodos */
         .node-hub { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); z-index: 10; padding: 1rem 1.5rem; animation-delay: 0.1s !important;}
         .node-hub .flow-node__icon { width: 40px; height: 40px; font-size: 1.25rem;}
         .node-hub .flow-node__text { font-size: 1rem; font-weight: 600; }
@@ -345,7 +340,6 @@
             50% { transform: translate(-50%, -50%) scale(1.02); }
         }
 
-        /* Aplicar delays a las animaciones de las líneas y pulsos */
         .line-whatsappflow { stroke: url(#lineGradWhatsappFlow); animation-delay: 0.6s; } 
         .pulse-whatsappflow { animation-delay: 0.7s; }
 
@@ -371,15 +365,13 @@
     </style>
 </head>
 <body>
-
     <div id="app" class="flex flex-col min-h-screen">
-
         <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-200/80">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16 md:h-20">
                     <div class="flex-shrink-0">
                         <a href="#home" class="navbar-logo-container-textual">
-                            <img src="LOGO-AICOLL-SIGN.png" alt="Aicoll x" class="meta-provider-logo mb-4 md:mb-0">
+                            <img src="logo.png" alt="Aicoll X" class="meta-provider-logo mb-4 md:mb-0">
                         </a>
                     </div>
                     <div class="hidden md:flex items-center space-x-5 lg:space-x-7">
@@ -625,7 +617,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                     <div>
                          <a href="#home" class="footer-logo-container-textual">
-                             <img src="LOGO-AICOLL-SIGN.png" alt="Aicoll x" class="meta-provider-logo mb-4 md:mb-0">
+                             <img src="logo.png" alt="Aicoll x" class="meta-provider-logo mb-4 md:mb-0">
                          </a>
                         <p class="text-sm">Transformando la tecnología en soluciones simples y poderosas para tu negocio.</p>
                     </div>
@@ -896,7 +888,6 @@ curl --request POST \\
                     activationSequence.forEach(item => {
                         const nodeElement = document.querySelector(item.nodeClass);
                         if (nodeElement) {
-                            // La animación popInNode ya tiene un delay en CSS
                         }
                     });
 
