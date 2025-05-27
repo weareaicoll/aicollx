@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aicoll X - Hub de Soluciones Tecnológicas Avanzadas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f8fafc; 
+            color: #374151; 
+        }
+        :root {
+            --color-primary: #18014C;
+            --color-secondary: #A30065;
+            --color-text-on-primary: #FFFFFF;
+            --color-text-on-secondary: #FFFFFF;
+            --color-gray-light: #f8fafc;
+            --color-gray-medium: #e5e7eb;
+            --color-gray-dark: #374151;
+            --color-accent-blue: #009FFF;
+            --color-accent-orange: #FF8008;
+            --color-accent-purple: #614385;
+            --color-accent-green: #28a745; 
+            --color-accent-teal: #00A99D; 
+            --color-accent-lime: #A5C32B;
+            --color-crm-highlight-bg: #f3e8ff; /* Un lila muy claro para el fondo del CRM destacado */
+        }
+
+        /* Estilo para el logo de AicollX basado en texto */
+        .navbar-logo-container-textual {
+            display: inline-flex;
+            align-items: center;
+        }
+        .navbar-logo-text {
+            font-weight: 700;
+            font-size: 1.875rem; /* text-3xl */
+            color: var(--color-primary);
+            padding: 0.1rem 0.3rem;
+        }
+        .navbar-logo-x {
+            font-weight: 700;
+            font-size: 1.875rem; /* text-3xl */
+            color: var(--color-secondary);
+            background-color: rgba(163,0,101,0.1); 
+            padding: 0.1rem 0.5rem; /* Ajustar padding para la X */
+            border-radius: 0.625rem; /* rounded-lg */
+            margin-left: 0.2rem;
+            line-height: 1.1; /* Para alinear mejor verticalmente si es necesario */
+        }
+         .footer-logo-container-textual {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .footer-logo-text {
+            font-weight: 700;
+            font-size: 1.875rem; /* text-3xl */
+            color: var(--color-text-on-primary); /* Color blanco para el footer */
+            padding: 0.1rem 0.3rem;
+        }
+        .footer-logo-x {
+            font-weight: 700;
+            font-size: 1.875rem; /* text-3xl */
+            color: var(--color-secondary);
+            background-color: rgba(255,255,255,0.15); /* Fondo más claro para la X en el footer */
+            padding: 0.1rem 0.5rem;
+            border-radius: 0.625rem; 
+            margin-left: 0.2rem;
+            line-height: 1.1;
+        }
+
+
+        .hero-section {
+            background-color: var(--color-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-logo-container-textual { /* Para el logo en la sección Hero */
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .hero-logo-text {
+            font-weight: 800; /* extra-bold */
+            font-size: 2.25rem; /* text-4xl, o ajustar según necesidad */
+            color: var(--color-text-on-primary);
+            padding: 0.1rem 0.3rem;
+        }
+        .hero-logo-x {
+            font-weight: 800;
+            font-size: 2.25rem;
+            color: var(--color-secondary);
+            background-color: rgba(255,255,255,0.15); 
+            padding: 0.1rem 0.5rem;
+            border-radius: 0.625rem; 
+            margin-left: 0.2rem;
+            line-height: 1.1;
+        }
+
+
+        .service-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            background-color: #FFFFFF; 
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #7c0047 100%); 
+            color: var(--color-text-on-secondary);
+            box-shadow: 0 6px 14px rgba(163,0,101, 0.4); 
+        }
+        /* Estilos para la tarjeta CRM destacada */
+        .crm-highlight {
+            background-color: var(--color-crm-highlight-bg) !important;
+            border: 2px solid var(--color-secondary) !important;
+            box-shadow: 0 10px 30px rgba(163,0,101,0.2) !important; /* Sombra más pronunciada */
+            transform: scale(1.03); /* Ligero aumento para destacar */
+        }
+        .crm-highlight:hover {
+            transform: translateY(-5px) scale(1.05); /* Efecto hover más pronunciado */
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .code-integration-bg {
+            background-color: var(--color-primary);
+        }
+        .code-tabs button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            color: #9ca3af;
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .code-tabs button.active, .code-tabs button:hover {
+            color: var(--color-text-on-primary);
+            border-bottom-color: var(--color-secondary);
+        }
+        .code-block {
+            background-color: rgba(0,0,0,0.2);
+            color: var(--color-gray-medium);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        .btn-primary {
+            background-color: var(--color-secondary);
+            color: var(--color-text-on-secondary);
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #860050; 
+            transform: translateY(-2px);
+        }
+        
+        /* Meta Tech Provider Section */
+        .meta-provider-section {
+            background-color: var(--color-gray-light);
+            border-top: 1px solid var(--color-gray-medium);
+            border-bottom: 1px solid var(--color-gray-medium);
+        }
+        .meta-provider-logo {
+            max-height: 40px; 
+            width: auto;
+            margin-right: 1rem; 
+        }
+
+        /* Dynamic API Ecosystem Flow Section */
+        .api-ecosystem-section {
+            background-color: #FFFFFF; 
+            background-image: radial-gradient(var(--color-gray-medium) 0.8px, transparent 0.8px);
+            background-size: 22px 22px; 
+            overflow: hidden; 
+            padding-top: 3rem; padding-bottom: 4rem;
+        }
+        .api-flow-container {
+            position: relative;
+            width: 100%;
+            max-width: 850px; 
+            min-height: 680px; 
+            margin: 0 auto;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flow-node {
+            position: absolute;
+            background-color: white;
+            border: 1px solid var(--color-gray-medium);
+            border-radius: 0.875rem; 
+            padding: 0.7rem 1rem; 
+            box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.4s ease-out, border-color 0.3s ease-out;
+            cursor: default;
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+            animation: popInNode 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+         @keyframes popInNode {
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .flow-node.node-active-flash { 
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 3px rgba(163,0,101,0.3), 0 8px 20px rgba(0,0,0,0.1);
+            transform: scale(1.05);
+        }
+
+        .flow-node:hover {
+            transform: translateY(-4px) scale(1.03); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .flow-node__icon {
+            width: 32px; 
+            height: 32px; 
+            border-radius: 0.625rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.7rem; 
+            font-size: 1rem; 
+        }
+        /* Gradientes para iconos de nodos */
+        .flow-node__icon--hub { background: linear-gradient(45deg, var(--color-primary) 0%, #4a00e0 100%); color: white; }
+        .flow-node__icon--whatsappflow { background: linear-gradient(45deg, #25D366 0%, #128C7E 100%); color: white; } 
+        .flow-node__icon--idvalidation { background: linear-gradient(45deg, var(--color-accent-orange) 0%, #cc6000 100%); color: white; }
+        .flow-node__icon--aiscoring { background: linear-gradient(45deg, var(--color-accent-purple) 0%, #4b2c70 100%); color: white; }
+        .flow-node__icon--esignature { background: linear-gradient(45deg, var(--color-accent-green) 0%, #1f8c38 100%); color: white; }
+        .flow-node__icon--payments { background: linear-gradient(45deg, var(--color-secondary) 0%, #dd007b 100%); color: white; }
+        .flow-node__icon--custody { background: linear-gradient(45deg, var(--color-accent-teal) 0%, #007A70 100%); color: white; }
+        .flow-node__icon--aiassistant { background: linear-gradient(45deg, var(--color-accent-lime) 0%, #829B20 100%); color: white; }
+        
+        .flow-node__text {
+            font-size: 0.85rem; 
+            font-weight: 500; 
+            color: var(--color-gray-dark);
+            white-space: nowrap;
+        }
+
+        /* Posicionamiento de los nodos */
+        .node-hub { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); z-index: 10; padding: 1rem 1.5rem; animation-delay: 0.1s !important;}
+        .node-hub .flow-node__icon { width: 40px; height: 40px; font-size: 1.25rem;}
+        .node-hub .flow-node__text { font-size: 1rem; font-weight: 600; }
+
+        .node-whatsappflow  { top: 15%; left: 25%; animation-delay: 0.5s;}
+        .node-idvalidation  { top: 30%; left: 75%; animation-delay: 1.2s;}
+        .node-aiscoring     { top: 50%; left: 10%; animation-delay: 1.9s;}
+        .node-esignature    { top: 70%; left: 30%; animation-delay: 2.6s;}
+        .node-payments      { top: 85%; left: 60%; animation-delay: 3.3s;}
+        .node-custody       { top: 65%; left: 80%; animation-delay: 4.0s;}
+        .node-aiassistant   { top: 10%; left: 60%; animation-delay: 4.7s;}
+        
+        .ghost-icon-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
+        .ghost-icon { position: absolute; font-size: 2.6rem; color: var(--color-gray-medium); opacity: 0.3; animation: floatGhostSimple 11s infinite ease-in-out alternate; }
+        .ghost-icon:nth-child(1) { top: 8%; left: 8%; animation-delay: 0s;}
+        .ghost-icon:nth-child(2) { top: 88%; left: 88%; animation-delay: -2.2s;}
+        .ghost-icon:nth-child(3) { top: 12%; left: 85%; animation-delay: -4.5s;}
+        .ghost-icon:nth-child(4) { top: 90%; left: 15%; animation-delay: -1.2s;}
+        .ghost-icon:nth-child(5) { top: 45%; left: 3%; animation-delay: -3.3s;}
+        .ghost-icon:nth-child(6) { top: 35%; left: 92%; animation-delay: -5.5s;}
+        .ghost-icon:nth-child(7) { top: 70%; left: 5%; animation-delay: -0.5s;}
+
+
+        @keyframes floatGhostSimple {
+            from { transform: translateY(0px) rotate(-2deg); }
+            to { transform: translateY(12px) rotate(2deg); }
+        }
+
+        .api-flow-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+        .api-flow-line {
+            fill: none;
+            stroke-width: 3px;
+            stroke-linecap: round;
+            stroke-dasharray: 1000; 
+            stroke-dashoffset: 1000;
+            animation: drawApiLine 1.2s ease-out forwards; 
+        }
+        
+        @keyframes drawApiLine { to { stroke-dashoffset: 0; } }
+        
+        .line-pulse-dot {
+            r: 4.5px; 
+            animation: pulsePathLine 1.2s ease-out infinite; 
+            opacity:0;
+        }
+        @keyframes pulsePathLine {
+            0% { opacity: 0; offset-distance: 0%; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; offset-distance: 100%; }
+        }
+        .node-hub { animation: pulseHubNode 2.5s infinite ease-in-out 0.3s; }
+        @keyframes pulseHubNode {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        /* Aplicar delays a las animaciones de las líneas y pulsos */
+        .line-whatsappflow { stroke: url(#lineGradWhatsappFlow); animation-delay: 0.6s; } 
+        .pulse-whatsappflow { animation-delay: 0.7s; }
+
+        .line-idvalidation { stroke: url(#lineGradIdValidation); animation-delay: 1.3s; }
+        .pulse-idvalidation { animation-delay: 1.4s; }
+
+        .line-aiscoring { stroke: url(#lineGradAiScoring); animation-delay: 2.0s; }
+        .pulse-aiscoring { animation-delay: 2.1s; }
+        
+        .line-esignature { stroke: url(#lineGradEsignature); animation-delay: 2.7s; }
+        .pulse-esignature { animation-delay: 2.8s; }
+
+        .line-payments { stroke: url(#lineGradPayments); animation-delay: 3.4s; }
+        .pulse-payments { animation-delay: 3.5s; }
+
+        .line-custody { stroke: url(#lineGradCustody); animation-delay: 4.1s; }
+        .pulse-custody { animation-delay: 4.2s; }
+
+        .line-aiassistant { stroke: url(#lineGradAiAssistant); animation-delay: 4.8s; }
+        .pulse-aiassistant { animation-delay: 4.9s; }
+
+
+    </style>
+</head>
+<body>
+
+    <div id="app" class="flex flex-col min-h-screen">
+
+        <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-200/80">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16 md:h-20">
+                    <div class="flex-shrink-0">
+                        <a href="#home" class="navbar-logo-container-textual">
+                            <span class="navbar-logo-text">Aicoll</span><span class="navbar-logo-x">X</span>
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-5 lg:space-x-7">
+                        <a href="#home" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
+                        <a href="#services" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Servicios</a>
+                        <a href="#meta-provider" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Partners</a>
+                        <a href="#dynamic-flow" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Ecosistema</a>
+                        <a href="#integrations" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Integración</a>
+                        <a href="#about" class="text-gray-700 hover:text-[var(--color-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors">Nosotros</a>
+                        <a href="#contact" class="btn-primary hover:shadow-lg px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300">Contáctanos</a>
+                    </div>
+                    <div class="md:hidden">
+                        <button @click="toggleMobileMenu" class="text-gray-600 hover:text-[var(--color-primary)] focus:outline-none">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div v-show="mobileMenuOpen" class="md:hidden border-t border-gray-200/80 bg-white">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#home" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Inicio</a>
+                    <a href="#services" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Servicios</a>
+                    <a href="#meta-provider" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Partners</a>
+                    <a href="#dynamic-flow" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Ecosistema</a>
+                    <a href="#integrations" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Integración</a>
+                    <a href="#about" @click="closeMobileMenu" class="block text-gray-700 hover:text-[var(--color-secondary)] hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium transition-colors">Nosotros</a>
+                    <a href="#contact" @click="closeMobileMenu" class="block bg-[var(--color-secondary)] text-white hover:bg-[#860050] px-3 py-2 rounded-md text-base font-medium transition-colors shadow-sm text-center">Contáctanos</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow">
+            <section id="home" class="hero-section text-[var(--color-text-on-primary)]">
+                <canvas id="hero-canvas"></canvas>
+                <div class="hero-content container mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-40 text-center">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
+                        <span class="hero-logo-container-textual">
+                            <span class="hero-logo-text">Aicoll</span><span class="hero-logo-x">X</span>
+                        </span>
+                        <br class="hidden sm:block"> El Futuro de las Soluciones Digitales Integradas
+                    </h1>
+                    <p class="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-10">
+                        Potenciamos tu negocio con un ecosistema de servicios tecnológicos de vanguardia. Simple, escalable y eficiente.
+                    </p>
+                    <a href="#services" class="btn-primary hover:shadow-xl text-lg font-semibold py-3.5 px-10 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        Explorar Soluciones
+                    </a>
+                </div>
+            </section>
+
+            <section id="services" class="py-16 lg:py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] tracking-tight">Un Universo de Posibilidades</h2>
+                        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                            Descubre cómo nuestras soluciones pueden transformar tus operaciones y llevar tu empresa al siguiente nivel.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                        <div v-for="(service, index) in services" :key="service.id" 
+                             class="service-card p-6 md:p-8 rounded-xl shadow-lg flex flex-col items-start"
+                             :class="{ 
+                                'crm-highlight': service.id === 12, 
+                                'lg:col-start-2': service.id === 12 && (services.length % 3 === 1) && index === services.length - 1,
+                                'lg:col-span-1': service.id === 12 && (services.length % 3 === 1) && index === services.length - 1
+                             }">
+                            <div class="icon-circle">
+                                <i :class="service.icon" class="text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-[var(--color-primary)] mb-3">{{ service.title }}</h3>
+                            <p class="text-gray-500 text-sm flex-grow">{{ service.description }}</p>
+                            <a :href="service.link || '#'" class="mt-6 text-[var(--color-secondary)] hover:text-[#860050] font-semibold text-sm group">
+                                Saber más <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="meta-provider" class="py-12 lg:py-16 meta-provider-section">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row items-center justify-center text-center md:text-left">
+                        <img src="https://cdn.prod.website-files.com/64aea11557b522cc5e90980e/6690ff6140df7ec4088b444f_Meta_TechProv.png" alt="Meta Tech Provider Logo" class="meta-provider-logo mb-4 md:mb-0">
+                        <div>
+                            <h2 class="text-2xl sm:text-3xl font-semibold text-[var(--color-primary)] tracking-tight">
+                                Somos Meta Tech Providers Oficiales
+                            </h2>
+                            <p class="mt-2 text-md text-gray-600 max-w-xl mx-auto md:mx-0">
+                                Como proveedores tecnológicos certificados por Meta, te ofrecemos acceso directo a las soluciones más innovadoras de WhatsApp Business Platform y otras tecnologías de Meta para potenciar tu comunicación y ventas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="dynamic-flow" class="py-16 lg:py-24 api-ecosystem-section">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] tracking-tight">Nuestro Ecosistema Inteligente y Conectado</h2>
+                        <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                            AicollX orquesta un flujo dinámico de servicios interconectados, desde el onboarding hasta el soporte post-transacción, creando valor en cada etapa.
+                        </p>
+                    </div>
+                    <div class="api-flow-container" ref="apiFlowContainerRef">
+                        <div class="ghost-icon-container">
+                            <i class="fas fa-shield-alt ghost-icon"></i>
+                            <i class="fas fa-brain ghost-icon"></i>
+                            <i class="fab fa-whatsapp ghost-icon"></i>
+                            <i class="fas fa-user-check ghost-icon"></i>
+                            <i class="fas fa-sitemap ghost-icon"></i>
+                            <i class="fas fa-cash-register ghost-icon"></i>
+                            <i class="fas fa-cubes ghost-icon"></i>
+                            <i class="fas fa-comments-dollar ghost-icon"></i>
+                        </div>
+
+                        <svg class="api-flow-svg" viewBox="0 0 850 680" preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                                <linearGradient id="lineGradWhatsappFlow" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="#25D366"/></linearGradient>
+                                <linearGradient id="lineGradIdValidation" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="var(--color-accent-orange)"/></linearGradient>
+                                <linearGradient id="lineGradAiScoring" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="var(--color-accent-purple)"/></linearGradient>
+                                <linearGradient id="lineGradEsignature" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="var(--color-accent-green)"/></linearGradient>
+                                <linearGradient id="lineGradPayments" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="var(--color-secondary)"/></linearGradient>
+                                <linearGradient id="lineGradCustody" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="var(--color-accent-teal)"/></linearGradient>
+                                <linearGradient id="lineGradAiAssistant" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="var(--color-primary)"/><stop offset="100%" stop-color="var(--color-accent-lime)"/></linearGradient>
+                            </defs>
+                            
+                            <path id="pathWhatsappFlow" class="api-flow-line line-whatsappflow" d="M425 340 Q320 220 230 120" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradWhatsappFlow)"><animateMotion dur="1.2s" begin="0.7s" repeatCount="indefinite"><mpath xlink:href="#pathWhatsappFlow"/></animateMotion></circle>
+
+                            <path id="pathIdValidation" class="api-flow-line line-idvalidation" d="M425 340 Q520 280 620 220" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradIdValidation)"><animateMotion dur="1.2s" begin="1.4s" repeatCount="indefinite"><mpath xlink:href="#pathIdValidation"/></animateMotion></circle>
+                            
+                            <path id="pathAiScoring" class="api-flow-line line-aiscoring" d="M425 340 Q280 360 180 430" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradAiScoring)"><animateMotion dur="1.2s" begin="2.1s" repeatCount="indefinite"><mpath xlink:href="#pathAiScoring"/></animateMotion></circle>
+
+                            <path id="pathEsignature" class="api-flow-line line-esignature" d="M425 340 Q360 450 300 550" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradEsignature)"><animateMotion dur="1.2s" begin="2.8s" repeatCount="indefinite"><mpath xlink:href="#pathEsignature"/></animateMotion></circle>
+
+                            <path id="pathPayments" class="api-flow-line line-payments" d="M425 340 Q500 460 580 580" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradPayments)"><animateMotion dur="1.2s" begin="3.5s" repeatCount="indefinite"><mpath xlink:href="#pathPayments"/></animateMotion></circle>
+
+                            <path id="pathCustody" class="api-flow-line line-custody" d="M425 340 Q580 360 700 400" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradCustody)"><animateMotion dur="1.2s" begin="4.2s" repeatCount="indefinite"><mpath xlink:href="#pathCustody"/></animateMotion></circle>
+                            
+                            <path id="pathAiAssistant" class="api-flow-line line-aiassistant" d="M425 340 Q425 200 425 80" />
+                            <circle class="line-pulse-dot" fill="url(#lineGradAiAssistant)"><animateMotion dur="1.2s" begin="4.9s" repeatCount="indefinite"><mpath xlink:href="#pathAiAssistant"/></animateMotion></circle>
+                        </svg>
+
+                        <div class="flow-node node-hub">
+                            <span class="flow-node__icon flow-node__icon--hub"><i class="fas fa-atom"></i></span>
+                            <span class="flow-node__text">AicollX Hub</span>
+                        </div>
+                        <div class="flow-node node-whatsappflow"> <span class="flow-node__icon flow-node__icon--whatsappflow"><i class="fab fa-whatsapp"></i></span>
+                            <span class="flow-node__text">WhatsApp Flow</span>
+                        </div>
+                        <div class="flow-node node-idvalidation">
+                            <span class="flow-node__icon flow-node__icon--idvalidation"><i class="fas fa-id-badge"></i></span>
+                            <span class="flow-node__text">Validación ID</span>
+                        </div>
+                         <div class="flow-node node-aiscoring">
+                            <span class="flow-node__icon flow-node__icon--aiscoring"><i class="fas fa-star-half-alt"></i></span>
+                            <span class="flow-node__text">Scoring IA</span>
+                        </div>
+                        <div class="flow-node node-esignature">
+                            <span class="flow-node__icon flow-node__icon--esignature"><i class="fas fa-file-contract"></i></span>
+                            <span class="flow-node__text">Firma Electrónica</span>
+                        </div>
+                        <div class="flow-node node-payments">
+                            <span class="flow-node__icon flow-node__icon--payments"><i class="fas fa-credit-card"></i></span>
+                            <span class="flow-node__text">Pagos</span>
+                        </div>
+                        <div class="flow-node node-custody">
+                            <span class="flow-node__icon flow-node__icon--custody"><i class="fas fa-shield-halved"></i></span> <span class="flow-node__text">Custodia Blockchain</span>
+                        </div>
+                        <div class="flow-node node-aiassistant">
+                            <span class="flow-node__icon flow-node__icon--aiassistant"><i class="fas fa-headset"></i></span>
+                            <span class="flow-node__text">Asistente IA</span>
+                        </div>
+                    </div>
+                     <p class="text-center text-gray-500 mt-12 text-sm">
+                        Una plataforma centralizada que potencia cada aspecto de tus operaciones financieras.
+                    </p>
+                </div>
+            </section>
+
+
+            <section id="integrations" class="py-16 lg:py-24 code-integration-bg">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Integra Nuestras APIs Fácilmente</h2>
+                        <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
+                            Comienza a construir con AicollX en minutos. Ofrecemos ejemplos claros y SDKs para una integración rápida.
+                        </p>
+                    </div>
+                    <div class="max-w-4xl mx-auto bg-[rgba(255,255,255,0.05)] backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden border border-[rgba(255,255,255,0.1)]">
+                        <div class="p-6 md:p-8">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+                                <h3 class="text-xl font-semibold text-white">Ejemplo: Validación de Identidad (KYC)</h3>
+                                <div class="code-tabs flex border-b border-gray-700/50 self-start sm:self-center">
+                                    <button 
+                                        v-for="lang in codeIntegration.languages" 
+                                        :key="lang.name" 
+                                        @click="setActiveLang(lang.name)"
+                                        :class="{ 'active': codeIntegration.activeLang === lang.name }">
+                                        {{ lang.label }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="code-block">
+                                <pre><code v-html="currentCodeSnippet"></code></pre>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4 text-right">Este es un ejemplo simplificado. Consulta nuestra <a href="#" class="text-[var(--color-secondary)] hover:underline">documentación completa</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="py-16 lg:py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                         <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] tracking-tight">Conoce a Aicoll<span class="text-[var(--color-secondary)]">X</span></h2>
+                        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                            Somos más que un proveedor de tecnología; somos tu socio estratégico en la era digital.
+                        </p>
+                    </div>
+                    <div class="max-w-3xl mx-auto bg-gray-50 p-8 md:p-12 rounded-xl shadow-xl border border-gray-200">
+                        <p class="text-gray-700 text-lg mb-6">
+                            En Aicoll<span class="text-[var(--color-secondary)] font-semibold">X</span>, revolucionamos la forma en que las empresas interactúan con la tecnología. Nacimos para desmitificar la complejidad del ecosistema digital, ofreciendo un marketplace de soluciones integradas que impulsan la eficiencia y el crecimiento en Latinoamérica.
+                        </p>
+                        <p class="text-gray-700 text-lg mb-6">
+                            Nuestra plataforma robusta, con un enfoque API-first, proporciona microservicios ágiles y escalables. Desde la validación de identidad biométrica hasta la automatización de pagos y la analítica avanzada con IA, Aicoll<span class="text-[var(--color-secondary)] font-semibold">X</span> te equipa con las herramientas para liderar en tu sector.
+                        </p>
+                        <p class="text-gray-700 text-lg">
+                            Nos consideramos "El Stripe" de las soluciones empresariales B2B, simplificando la adopción tecnológica para que te concentres en la expansión de tu negocio.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-16 lg:py-24 bg-[var(--color-primary)]">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-xl mx-auto text-center mb-12">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Hablemos de tu Próximo Proyecto</h2>
+                        <p class="mt-4 text-lg text-gray-300">
+                            ¿Listo para innovar? Completa el formulario y nuestro equipo se pondrá en contacto contigo.
+                        </p>
+                    </div>
+                    <div class="max-w-lg mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl">
+                        <form @submit.prevent="submitForm">
+                            <div class="grid grid-cols-1 gap-y-6 gap-x-4">
+                                <div >
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="name" id="name" autocomplete="name" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border-gray-300 rounded-md" placeholder="Tu nombre">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                    <div class="mt-1">
+                                        <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border-gray-300 rounded-md" placeholder="tu@email.com">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-gray-700">Empresa (Opcional)</label>
+                                    <div class="mt-1">
+                                        <input type="text" name="company" id="company" autocomplete="organization" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border-gray-300 rounded-md" placeholder="Nombre de tu empresa">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
+                                    <div class="mt-1">
+                                        <textarea id="message" name="message" rows="4" class="py-3 px-4 block w-full shadow-sm focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] border border-gray-300 rounded-md" placeholder="¿Cómo podemos ayudarte?"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <button type="submit" class="w-full btn-primary hover:shadow-lg inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-secondary)]">
+                                    Enviar Mensaje
+                                </button>
+                            </div>
+                        </form>
+                         <p v-if="formSubmitted" class="mt-4 text-center text-green-600">¡Gracias! Tu mensaje ha sido enviado.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-gray-900 text-gray-400"> 
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    <div>
+                         <a href="#home" class="footer-logo-container-textual">
+                             <span class="footer-logo-text">Aicoll</span><span class="footer-logo-x">X</span>
+                         </a>
+                        <p class="text-sm">Transformando la tecnología en soluciones simples y poderosas para tu negocio.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4">Enlaces Rápidos</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#home" class="hover:text-[var(--color-secondary)] transition-colors">Inicio</a></li>
+                            <li><a href="#services" class="hover:text-[var(--color-secondary)] transition-colors">Servicios</a></li>
+                             <li><a href="#meta-provider" class="hover:text-[var(--color-secondary)] transition-colors">Partners</a></li>
+                            <li><a href="#dynamic-flow" class="hover:text-[var(--color-secondary)] transition-colors">Ecosistema</a></li>
+                            <li><a href="#integrations" class="hover:text-[var(--color-secondary)] transition-colors">Integración</a></li>
+                            <li><a href="#about" class="hover:text-[var(--color-secondary)] transition-colors">Nosotros</a></li>
+                            <li><a href="#contact" class="hover:text-[var(--color-secondary)] transition-colors">Contacto</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-4">Síguenos</h3>
+                        <div class="flex space-x-5">
+                            <a href="#" class="hover:text-[var(--color-secondary)] transition-colors"><i class="fab fa-linkedin fa-lg"></i></a>
+                            <a href="#" class="hover:text-[var(--color-secondary)] transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                            <a href="#" class="hover:text-[var(--color-secondary)] transition-colors"><i class="fab fa-facebook-square fa-lg"></i></a>
+                            <a href="#" class="hover:text-[var(--color-secondary)] transition-colors"><i class="fab fa-instagram fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                    <p>&copy; {{ new Date().getFullYear() }} AicollX. Todos los derechos reservados.</p>
+                    <p>Diseñado con <i class="fas fa-heart text-[var(--color-secondary)]"></i> en Latinoamérica.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted, computed, onBeforeUnmount } = Vue;
+
+        createApp({
+            setup() {
+                const mobileMenuOpen = ref(false);
+                const toggleMobileMenu = () => {
+                    mobileMenuOpen.value = !mobileMenuOpen.value;
+                };
+                const closeMobileMenu = () => {
+                    mobileMenuOpen.value = false;
+                };
+
+                const services = ref([
+                    { 
+                        id: 1, 
+                        title: 'Firma Electrónica por WhatsApp', 
+                        description: 'Agiliza la firma de documentos con validez legal directamente desde la app de mensajería más usada.',
+                        icon: 'fab fa-whatsapp', 
+                        link: '#contact' 
+                    },
+                    { 
+                        id: 2, 
+                        title: 'Validación ID Biométrica', 
+                        description: 'Verifica identidades con precisión y seguridad, cumpliendo normativas KYC/AML.',
+                        icon: 'fas fa-user-shield' 
+                    },
+                    { 
+                        id: 3, 
+                        title: 'Custodia Segura en Blockchain', 
+                        description: 'Garantiza la inmutabilidad y transparencia de tus activos digitales y documentos críticos.',
+                        icon: 'fas fa-cubes' 
+                    },
+                    { 
+                        id: 4, 
+                        title: 'Firma Digital Avanzada por Email', 
+                        description: 'Implementa flujos de firma electrónica robustos y certificados a través de correo electrónico.',
+                        icon: 'fas fa-file-signature' 
+                    },
+                    { 
+                        id: 6, 
+                        title: 'Scoring de Crédito con IA',
+                        description: 'Obtén perfiles de riesgo crediticio más precisos y rápidos utilizando inteligencia artificial.',
+                        icon: 'fas fa-brain' 
+                    },
+                    { 
+                        id: 7, 
+                        title: 'Pagos Inteligentes por WhatsApp', 
+                        description: 'Automatiza y simplifica cobros y pagos, ofreciendo una experiencia conversacional fluida.',
+                        icon: 'fas fa-comment-dollar' 
+                    },
+                    { 
+                        id: 8, 
+                        title: 'WhatsApp Flow', 
+                        description: 'Diseña y despliega flujos conversacionales avanzados en WhatsApp para optimizar la interacción con tus clientes.',
+                        icon: 'fab fa-whatsapp' 
+                    },
+                    {
+                        id: 9,
+                        title: 'Asistente IA para WhatsApp',
+                        description: 'Automatiza la atención al cliente y procesos comerciales con un chatbot inteligente integrado en WhatsApp.',
+                        icon: 'fas fa-robot' 
+                    },
+                    {
+                        id: 10,
+                        title: 'Validación AML y Prevención de Fraude',
+                        description: 'Cumple con las regulaciones Anti-Lavado de Dinero y protege tu negocio.',
+                        icon: 'fas fa-search-dollar' 
+                    },
+                    {
+                        id: 12,
+                        title: 'CRM Especializado para Crédito',
+                        description: 'Gestiona todo el ciclo de vida del crédito con una herramienta especializada y eficiente.',
+                        icon: 'fas fa-sitemap' 
+                    }
+                ]);
+
+                const formSubmitted = ref(false);
+                const submitForm = () => {
+                    console.log("Formulario enviado");
+                    formSubmitted.value = true;
+                    setTimeout(() => {
+                        formSubmitted.value = false;
+                    }, 3000);
+                };
+                
+                const codeIntegration = ref({
+                    activeLang: 'javascript',
+                    languages: [
+                        { name: 'javascript', label: 'JavaScript' },
+                        { name: 'python', label: 'Python' },
+                        { name: 'curl', label: 'cURL' }
+                    ],
+                    snippets: { 
+                        javascript: `
+<span class="token comment">// Ejemplo: Verificar Identidad con AicollX SDK</span>
+<span class="token keyword">import</span> AicollX <span class="token keyword">from</span> <span class="token string">'aicollx-sdk'</span>;
+
+<span class="token keyword">const</span> aicoll = <span class="token keyword">new</span> <span class="token className">AicollX</span>({ apiKey: <span class="token string">'TU_API_KEY_AQUI'</span> });
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">verificarIdentidad</span>(userData) {
+  <span class="token keyword">try</span> {
+    <span class="token keyword">const</span> response = <span class="token keyword">await</span> aicoll.kyc.<span class="token function">verify</span>({
+      documentType: userData.docType,
+      documentNumber: userData.docNumber,
+      selfieImageBase64: userData.selfieBase64 <span class="token comment">// Base64 encoded image</span>
+    });
+    console.<span class="token function">log</span>(<span class="token string">'Verificación Exitosa:'</span>, response);
+    <span class="token keyword">return</span> response;
+  } <span class="token keyword">catch</span> (error) {
+    console.<span class="token function">error</span>(<span class="token string">'Error en Verificación:'</span>, error);
+    <span class="token keyword">throw</span> error;
+  }
+}
+                        `,
+                        python: `
+<span class="token comment"># Ejemplo: Verificar Identidad con AicollX SDK</span>
+<span class="token keyword">import</span> aicollx
+
+aicoll = aicollx.<span class="token function">Client</span>(api_key=<span class="token string">'TU_API_KEY_AQUI'</span>)
+
+<span class="token keyword">def</span> <span class="token function">verificar_identidad</span>(user_data):
+    <span class="token keyword">try</span>:
+        response = aicoll.kyc.<span class="token function">verify</span>(
+            document_type=user_data.get(<span class="token string">'doc_type'</span>),
+            document_number=user_data.get(<span class="token string">'doc_number'</span>),
+            selfie_image_base64=user_data.get(<span class="token string">'selfie_base64'</span>) <span class="token comment"># Base64 encoded image</span>
+        )
+        <span class="token keyword">print</span>(<span class="token string">f"Verificación Exitosa: {response}"</span>)
+        <span class="token keyword">return</span> response
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e:
+        <span class="token keyword">print</span>(<span class="token string">f"Error en Verificación: {e}"</span>)
+        <span class="token keyword">raise</span> e
+                        `,
+                        curl: `
+<span class="token comment"># Ejemplo: Verificar Identidad con AicollX API (cURL)</span>
+curl --request POST \\
+     --url https://api.aicollx.com/v1/kyc/verify \\
+     --header <span class="token string">'Authorization: Bearer TU_API_KEY_AQUI'</span> \\
+     --header <span class="token string">'Content-Type: application/json'</span> \\
+     --data <span class="token string">'{
+       "documentType": "CC",
+       "documentNumber": "123456789",
+       "selfieImageBase64": "data:image/jpeg;base64,/9j/4AAQSk..."
+     }'</span>
+                        `
+                    }
+                });
+
+                const setActiveLang = (langName) => {
+                    codeIntegration.value.activeLang = langName;
+                };
+
+                const currentCodeSnippet = computed(() => {
+                    return codeIntegration.value.snippets[codeIntegration.value.activeLang];
+                });
+                
+                const apiFlowContainerRef = ref(null); 
+
+                onMounted(() => {
+                    if (typeof THREE === 'undefined') {
+                        console.error("Three.js no está cargado.");
+                    } else {
+                        const canvas = document.getElementById('hero-canvas');
+                        if (canvas) {
+                             const scene = new THREE.Scene();
+                            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+                            
+                            const setRendererSize = () => {
+                                const heroSection = document.getElementById('home');
+                                if (heroSection) {
+                                    renderer.setSize(heroSection.clientWidth, heroSection.clientHeight);
+                                    camera.aspect = heroSection.clientWidth / heroSection.clientHeight;
+                                    camera.updateProjectionMatrix();
+                                }
+                            };
+                            setRendererSize();
+                            renderer.setClearColor(0x000000, 0);
+
+                            const particlesGeometry = new THREE.BufferGeometry();
+                            const particlesCnt = 3000; 
+                            const posArray = new Float32Array(particlesCnt * 3);
+                            for (let i = 0; i < particlesCnt * 3; i++) {
+                                posArray[i] = (Math.random() - 0.5) * (Math.random() * 20); 
+                            }
+                            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                            
+                            const particlesMaterial = new THREE.PointsMaterial({
+                                size: 0.02,
+                                color: new THREE.Color("var(--color-secondary)"), 
+                                transparent: true,
+                                opacity: 0.7, 
+                                blending: THREE.AdditiveBlending 
+                            });
+                            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                            scene.add(particlesMesh);
+                            camera.position.z = 3; 
+
+                            let mouseX = 0;
+                            let mouseY = 0;
+                            const onMouseMove = (event) => {
+                                mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                                mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                            };
+                            document.addEventListener('mousemove', onMouseMove);
+
+                            const clock = new THREE.Clock();
+                            const animate = () => {
+                                requestAnimationFrame(animate);
+                                const elapsedTime = clock.getElapsedTime();
+                                particlesMesh.rotation.y = elapsedTime * 0.03;
+                                particlesMesh.rotation.x = elapsedTime * 0.01;
+                                camera.position.x += (mouseX * 0.05 - camera.position.x) * 0.02; 
+                                camera.position.y += (mouseY * 0.05 - camera.position.y) * 0.02;
+                                camera.lookAt(scene.position);
+                                renderer.render(scene, camera);
+                            };
+                            animate();
+                            window.addEventListener('resize', setRendererSize);
+                        }
+                    }
+
+                    const activationSequence = [
+                        { nodeClass: '.node-hub', delay: 0.1 },
+                        { nodeClass: '.node-whatsappflow', delay: 0.5},
+                        { nodeClass: '.node-idvalidation', delay: 1.2},
+                        { nodeClass: '.node-aiscoring', delay: 1.9},
+                        { nodeClass: '.node-esignature', delay: 2.6},
+                        { nodeClass: '.node-payments', delay: 3.3},
+                        { nodeClass: '.node-custody', delay: 4.0},
+                        { nodeClass: '.node-aiassistant', delay: 4.7}
+                    ];
+                    
+                    activationSequence.forEach(item => {
+                        const nodeElement = document.querySelector(item.nodeClass);
+                        if (nodeElement) {
+                            // La animación popInNode ya tiene un delay en CSS
+                        }
+                    });
+
+
+                });
+
+                onBeforeUnmount(() => {
+                });
+
+                return {
+                    mobileMenuOpen,
+                    toggleMobileMenu,
+                    closeMobileMenu,
+                    services,
+                    formSubmitted,
+                    submitForm,
+                    codeIntegration,
+                    setActiveLang,
+                    currentCodeSnippet,
+                    apiFlowContainerRef 
+                };
+            }
+        }).mount('#app');
+    </script>
+
+</body>
+</html>
