@@ -206,6 +206,10 @@
             width: auto;
             margin-right: 1rem; 
         }
+        .meta-provider-logo-partner {
+            max-height: 120px; 
+            width: auto;
+        }
 
         .api-ecosystem-section {
             background-color: #FFFFFF; 
@@ -456,7 +460,7 @@
             <section id="meta-provider" class="py-12 lg:py-16 meta-provider-section">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col md:flex-row items-center justify-center text-center md:text-left">
-                        <img src="https://cdn.prod.website-files.com/64aea11557b522cc5e90980e/6690ff6140df7ec4088b444f_Meta_TechProv.png" alt="Meta Tech Provider Logo" class="meta-provider-logo mb-4 md:mb-0">
+                        <img src="meta-tech-partner.png" alt="Meta Tech Provider Logo" class="meta-provider-logo-partner mb-4 md:mb-0">
                         <div>
                             <h2 class="text-2xl sm:text-3xl font-semibold text-[var(--color-primary)] tracking-tight">
                                 Somos Meta Tech Providers Oficiales
@@ -665,6 +669,7 @@
                 const closeMobileMenu = () => {
                     mobileMenuOpen.value = false;
                 };
+                const urlWhatsapp = "https://wa.me/573127047643"
 
                 const services = ref([
                     { 
@@ -672,61 +677,70 @@
                         title: 'Firma Electrónica por WhatsApp', 
                         description: 'Agiliza la firma de documentos con validez legal directamente desde la app de mensajería más usada.',
                         icon: 'fab fa-whatsapp', 
-                        link: '#contact' 
+                        link: urlWhatsapp 
                     },
                     { 
                         id: 2, 
                         title: 'Validación ID Biométrica', 
                         description: 'Verifica identidades con precisión y seguridad, cumpliendo normativas KYC/AML.',
-                        icon: 'fas fa-user-shield' 
+                        icon: 'fas fa-user-shield' ,
+                        link: urlWhatsapp 
                     },
                     { 
                         id: 3, 
                         title: 'Custodia Segura en Blockchain', 
                         description: 'Garantiza la inmutabilidad y transparencia de tus activos digitales y documentos críticos.',
-                        icon: 'fas fa-cubes' 
+                        icon: 'fas fa-cubes' ,
+                        link: urlWhatsapp 
                     },
                     { 
                         id: 4, 
                         title: 'Firma Digital Avanzada por Email', 
                         description: 'Implementa flujos de firma electrónica robustos y certificados a través de correo electrónico.',
-                        icon: 'fas fa-file-signature' 
+                        icon: 'fas fa-file-signature' ,
+                        link: urlWhatsapp 
                     },
                     { 
                         id: 6, 
                         title: 'Scoring de Crédito con IA',
                         description: 'Obtén perfiles de riesgo crediticio más precisos y rápidos utilizando inteligencia artificial.',
-                        icon: 'fas fa-brain' 
+                        icon: 'fas fa-brain', 
+                        link: urlWhatsapp 
                     },
                     { 
                         id: 7, 
                         title: 'Pagos Inteligentes por WhatsApp', 
                         description: 'Automatiza y simplifica cobros y pagos, ofreciendo una experiencia conversacional fluida.',
-                        icon: 'fas fa-comment-dollar' 
+                        icon: 'fas fa-comment-dollar',
+                        link: urlWhatsapp 
                     },
                     { 
                         id: 8, 
                         title: 'WhatsApp Flow', 
                         description: 'Diseña y despliega flujos conversacionales avanzados en WhatsApp para optimizar la interacción con tus clientes.',
-                        icon: 'fab fa-whatsapp' 
+                        icon: 'fab fa-whatsapp',
+                        link: urlWhatsapp  
                     },
                     {
                         id: 9,
                         title: 'Asistente IA para WhatsApp',
                         description: 'Automatiza la atención al cliente y procesos comerciales con un chatbot inteligente integrado en WhatsApp.',
-                        icon: 'fas fa-robot' 
+                        icon: 'fas fa-robot',
+                        link: urlWhatsapp 
                     },
                     {
                         id: 10,
                         title: 'Validación AML y Prevención de Fraude',
                         description: 'Cumple con las regulaciones Anti-Lavado de Dinero y protege tu negocio.',
-                        icon: 'fas fa-search-dollar' 
+                        icon: 'fas fa-search-dollar',
+                        link: urlWhatsapp 
                     },
                     {
                         id: 12,
                         title: 'CRM Especializado para Crédito',
                         description: 'Gestiona todo el ciclo de vida del crédito con una herramienta especializada y eficiente.',
-                        icon: 'fas fa-sitemap' 
+                        icon: 'fas fa-sitemap' ,
+                        link: urlWhatsapp 
                     }
                 ]);
 
